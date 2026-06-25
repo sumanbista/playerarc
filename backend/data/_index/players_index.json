@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "last_updated": "2026-06-24",
+  "player_count": 3,
+  "players": [
+    {
+      "player_id": "haaland_erling",
+      "full_name": "Erling Braut Haaland",
+      "display_name": "Erling Haaland",
+      "date_of_birth": "2000-07-21",
+      "nationality": "Norway",
+      "position": "Forward",
+      "current_club": "Manchester City",
+      "current_league": "Premier League",
+      "national_team": "Norway",
+      "is_national_team_captain": false,
+      "currently_in_world_cup_2026": true,
+      "data_completeness": {
+        "club_stints_total": 12,
+        "club_stints_resolved": 11,
+        "note": "Only Bryne FK 2016 (senior debut club) remains unresolved."
+      }
+    },
+    {
+      "player_id": "mbappe_kylian",
+      "full_name": "Kylian Mbappé Lottin",
+      "display_name": "Kylian Mbappé",
+      "date_of_birth": "1998-12-20",
+      "nationality": "France",
+      "position": "Forward",
+      "current_club": "Real Madrid",
+      "current_league": "La Liga",
+      "national_team": "France",
+      "is_national_team_captain": true,
+      "currently_in_world_cup_2026": true,
+      "data_completeness": {
+        "club_stints_total": 11,
+        "club_stints_resolved": 2,
+        "note": "Most of the 7-season PSG career and Real Madrid's debut season still need structured per-season data."
+      }
+    },
+    {
+      "player_id": "kane_harry",
+      "full_name": "Harry Edward Kane",
+      "display_name": "Harry Kane",
+      "date_of_birth": "1993-07-28",
+      "nationality": "England",
+      "position": "Forward",
+      "current_club": "Bayern Munich",
+      "current_league": "Bundesliga",
+      "national_team": "England",
+      "is_national_team_captain": true,
+      "currently_in_world_cup_2026": true,
+      "data_completeness": {
+        "club_stints_total": 12,
+        "club_stints_resolved": 2,
+        "note": "Long ~14-year Tottenham career mostly represented by an aggregate placeholder pending season-by-season backfill."
+      }
+    }
+  ],
+
+  "index_notes": [
+    "This index is intentionally lightweight - it exists so a player list/search page never has to load all 3 (eventually 25-50+) full player JSON files just to render names, clubs, and flags.",
+    "current_club/current_league are read from each player's first club_career entry, which is a relied-upon convention: the in_progress season is always listed FIRST in club_career arrays across all player files. If that convention is ever broken when adding a new player, this index will show stale/wrong current-club data - worth a validation check in the future API layer.",
+    "data_completeness is a dev-facing signal for now (tracks how much of each player's club_career is needs_breakdown-flagged vs resolved). Whether this should ever be user-visible (e.g. a 'data may be incomplete' badge) is an open product decision, not yet made.",
+    "currently_in_world_cup_2026 is true for all 3 players as of this index's last_updated date, since all three are active in the ongoing tournament. This field will need manual updates as the tournament progresses (e.g. set to false for any of them if eliminated) since it's not derived automatically from anything else in the player files yet."
+  ]
+}
